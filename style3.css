@@ -1,0 +1,134 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: black;
+  overflow: hidden;
+}
+
+/* FILM BACKGROUND */
+.film-strip {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 0;
+  transition: filter 0.6s ease;
+}
+
+.blur {
+  filter: blur(6px) brightness(0.6);
+}
+
+.film-row {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  border-top: 6px solid #000;
+  border-bottom: 6px solid #000;
+}
+
+.film-row::before,
+.film-row::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 22px;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    #000 0 10px,
+    transparent 10px 20px
+  );
+  z-index: 2;
+}
+.film-row::before { left: 0; }
+.film-row::after { right: 0; }
+
+.film-track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+}
+
+.film-track img {
+  height: 100%;
+  max-width: 40vw;
+  object-fit: cover;
+  filter: brightness(0.4);
+}
+
+.right { animation: moveRight 26s linear infinite; }
+.left  { animation: moveLeft 30s linear infinite; }
+
+@keyframes moveRight {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes moveLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* LETTER */
+.container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  z-index: 5;
+  text-align: center;
+}
+
+.envelope {
+  background: white;
+  padding: 60px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+}
+
+.letter {
+  display: none;
+  background: rgba(255,255,255,0.97);
+  padding: 20px;
+  border-radius: 8px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.open .envelope { display: none; }
+.open .letter { display: block; }
+
+#forgiveBtn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background: #bb377d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#forgiveMsg {
+  display: none;
+  margin-top: 10px;
+  color: #bb377d;
+  font-weight: bold;
+}
+
+.signature {
+  margin-top: 20px;
+  text-align: right;
+  color: #bb377d;
+}
+
+@media (max-width: 768px) {
+  .film-track img { max-width: 80vw; }
+}
